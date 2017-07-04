@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>Pronto Alarma</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/alarma.css" rel="stylesheet">
+</head>
+<body style="">
+	<div class="container-fluid">
+		<div class="row padding-top-10">
+			<div id="alarmaTitle" class="col-md-12 center-text">
+				<h3>Alarma</h3>
+			</div>
+		</div>
+		<div class="row padding-top-10">
+			<div class="col-md-12 form-inline">
+				<div class="form-group">
+					<label for="searchValue">Usuario</label>
+					<input type="text" class="form-control" id="searchValue" placeholder="Numero de telefono" onkeypress="checkEnter(event)">
+				</div>
+				<input type="button" id="buscar" class="btn btn-default" value="Buscar" onclick="buscar()"></input>
+				<p class="alert alert-danger" id="error" style="display:none;margin-top: 5px;margin-left: -15px;"></p>
+			</div>
+  			<!-- <div class="col-md-4">.col-md-4</div> -->
+		</div>
+		<div id="defaultMessage" class="row padding-top-10">
+			<div id="scanning" >
+				<p class="msgText" >
+					Conectado con el servidor <br><br>
+				</p>
+				<div class="spinText"><b id="scanningText">Escaneando</b></div>
+
+				<div class="spinDiv">
+					<div id="spinnerDiv" class=""></div>
+				</div>
+
+			</div>
+			<div id="disconected" style="display:none;">
+				<div class="">
+					Desconectado del servidor
+				</div>
+			</div>
+		</div>
+		<div id="detailsRow" class="row padding-top-10" style="display:none; height:60%;">
+
+			<div class="col-md-5 form-horizontal user-info" style="height:100%;">
+				<div id="details" >
+					<div class="form-group">
+					    <p  class="col-sm-2"><strong>Direccion:</strong></p>
+					    <div class="col-sm-10">
+					      <p class="" id="direccion"></p>
+						</div>
+					</div>
+					<div class="form-group">
+					    <p  class="col-sm-2"><strong>Nombre:</strong></p>
+					    <div class="col-sm-10">
+					      <p class="" id="nombre"></p>
+						</div>
+					</div>
+					<div class="form-group">
+					    <p  class="col-sm-2"><strong>Telefono:</strong></p>
+					    <div class="col-sm-10">
+					      <p class="" id="telefono"></p>
+						</div>
+					</div>
+				</div>
+		  </div>
+			<div class="col-md-7" style="height:100%;">
+				<img src="images/default1.png" id="mapa" alt="ubicacion" class="img-rounded map-image">
+			</div>
+		</div>
+	</div>
+
+<!-- js files -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/underscore.min.js"></script>
+<script src="js/socketIO.js"></script>
+<script src="js/spin.js"></script>
+<script src="data/data.js"></script>
+<script src="js/alarma.js"></script>
+</body>
+</html>

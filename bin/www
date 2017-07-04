@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('pronto-alarma:server');
+var debug = require('debug')('alarma:server');
 var http = require('http');
 
 /**
@@ -88,3 +88,36 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+var PORT = 6306;
+// var HOST = '192.168.0.9';
+var HOST = '127.0.0.1';
+var fs = require('fs');
+var dgram = require('dgram');
+var updServer = dgram.createSocket('udp4');
+var io = require('socket.io')(server);
+
+updServer.on('listening', function () {
+    var address = updServer.address();
+    console.log('UDP Server listening on ' + address.address + ":" + address.port);
+});
+// 152.200.123.30:20281 -  ALARMA 0802 DEL 5025536637
+// It's saved! in same location.
+// 152.200.123.30:20282 -  PETICI0N 0802 DEL 3163142547
+updServer.on('message', function (message, remote) {
+  var str = remote.address + ':' + remote.port +' - ' + message;
+  if(message.indexOf('ALARMA')> -1){
+    var parts = message.toString().split(' ');
+    console.log('part:'+parts[parts.length-1]);
+    io.emit('alarmaevent', { from: parts[parts.length-1] });
+  }
+    console.log(str);
+
+    fs.writeFile('data/message.txt', str, function (err) {
+        if (err) throw err;
+        console.log('It\'s saved! in same location.');
+    });
+
+});
+
+updServer.bind(PORT, HOST);
